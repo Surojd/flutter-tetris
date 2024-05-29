@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 
-const _COLOR_NORMAL = Colors.black87;
-
-const _COLOR_NULL = Colors.black12;
-
-const _COLOR_HIGHLIGHT = Color(0xFF560000);
+const colorNormal = Colors.black87;
+const colorNull = Colors.black12;
+const colorHighlight = Color(0xFF560000);
 
 class BrikSize extends InheritedWidget {
   const BrikSize({
-    Key key,
-    @required this.size,
-    @required Widget child,
-  })  : assert(child != null),
-        super(key: key, child: child);
+    super.key,
+    required this.size,
+    required super.child,
+  });
 
   final Size size;
 
   static BrikSize of(BuildContext context) {
     final brikSize = context.dependOnInheritedWidgetOfExactType<BrikSize>();
     assert(brikSize != null, "....");
-    return brikSize;
+    return brikSize!;
   }
 
   @override
-  bool updateShouldNotify(BrikSize old) {
-    return old.size != size;
+  bool updateShouldNotify(BrikSize oldWidget) {
+    return oldWidget.size != size;
   }
 }
 
@@ -32,13 +29,19 @@ class BrikSize extends InheritedWidget {
 class Brik extends StatelessWidget {
   final Color color;
 
-  const Brik._({Key key, this.color}) : super(key: key);
+  const Brik._({required this.color});
 
-  const Brik.normal() : this._(color: _COLOR_NORMAL);
+  static Brik normal() {
+    return const Brik._(color: colorNormal);
+  }
 
-  const Brik.empty() : this._(color: _COLOR_NULL);
+  static Brik empty() {
+    return const Brik._(color: colorNull);
+  }
 
-  const Brik.highlight() : this._(color: _COLOR_HIGHLIGHT);
+  static Brik highlight() {
+    return const Brik._(color: colorHighlight);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +51,8 @@ class Brik extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(0.05 * width),
         padding: EdgeInsets.all(0.1 * width),
-        decoration:
-            BoxDecoration(border: Border.all(width: 0.10 * width, color: color)),
+        decoration: BoxDecoration(
+            border: Border.all(width: 0.10 * width, color: color)),
         child: Container(
           color: color,
         ),

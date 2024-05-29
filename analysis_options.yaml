@@ -1,0 +1,7 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    empty_catches: false
+    prefer_const_constructors: true
+    unnecessary_parenthesis: true

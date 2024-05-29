@@ -3,12 +3,14 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:tetris/gamer/gamer.dart';
-import 'package:tetris/generated/i18n.dart';
+import 'package:tetris/generated/l10n.dart';
 
 class GameController extends StatelessWidget {
+  const GameController({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       height: 200,
       child: Row(
         children: <Widget>[
@@ -20,21 +22,23 @@ class GameController extends StatelessWidget {
   }
 }
 
-const Size _DIRECTION_BUTTON_SIZE = const Size(48, 48);
+const Size directionButtonSize = Size(48, 48);
 
-const Size _SYSTEM_BUTTON_SIZE = const Size(28, 28);
+const Size systemButtonSize = Size(28, 28);
 
-const double _DIRECTION_SPACE = 16;
+const double directionSpace = 16;
 
 const double _iconSize = 16;
 
 class DirectionController extends StatelessWidget {
+  const DirectionController({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        SizedBox.fromSize(size: _DIRECTION_BUTTON_SIZE * 2.8),
+        SizedBox.fromSize(size: directionButtonSize * 2.8),
         Transform.rotate(
           angle: math.pi / 4,
           child: Column(
@@ -47,7 +51,7 @@ class DirectionController extends StatelessWidget {
                     scale: 1.5,
                     child: Transform.rotate(
                         angle: -math.pi / 4,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_drop_up,
                           size: _iconSize,
                         )),
@@ -56,7 +60,7 @@ class DirectionController extends StatelessWidget {
                     scale: 1.5,
                     child: Transform.rotate(
                         angle: -math.pi / 4,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_right,
                           size: _iconSize,
                         )),
@@ -70,7 +74,7 @@ class DirectionController extends StatelessWidget {
                     scale: 1.5,
                     child: Transform.rotate(
                         angle: -math.pi / 4,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_left,
                           size: _iconSize,
                         )),
@@ -79,7 +83,7 @@ class DirectionController extends StatelessWidget {
                     scale: 1.5,
                     child: Transform.rotate(
                         angle: -math.pi / 4,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_drop_down,
                           size: _iconSize,
                         )),
@@ -94,43 +98,43 @@ class DirectionController extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              SizedBox(height: _DIRECTION_SPACE),
+              const SizedBox(height: directionSpace),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _Button(
                       enableLongPress: false,
-                      size: _DIRECTION_BUTTON_SIZE,
+                      size: directionButtonSize,
                       onTap: () {
                         Game.of(context).rotate();
                       }),
-                  SizedBox(width: _DIRECTION_SPACE),
+                  const SizedBox(width: directionSpace),
                   _Button(
-                      size: _DIRECTION_BUTTON_SIZE,
+                      size: directionButtonSize,
                       onTap: () {
                         Game.of(context).right();
                       }),
                 ],
               ),
-              SizedBox(height: _DIRECTION_SPACE),
+              const SizedBox(height: directionSpace),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _Button(
-                      size: _DIRECTION_BUTTON_SIZE,
+                      size: directionButtonSize,
                       onTap: () {
                         Game.of(context).left();
                       }),
-                  SizedBox(width: _DIRECTION_SPACE),
+                  const SizedBox(width: directionSpace),
                   _Button(
-                    size: _DIRECTION_BUTTON_SIZE,
+                    size: directionButtonSize,
                     onTap: () {
                       Game.of(context).down();
                     },
                   ),
                 ],
               ),
-              SizedBox(height: _DIRECTION_SPACE),
+              const SizedBox(height: directionSpace),
             ],
           ),
         ),
@@ -140,7 +144,9 @@ class DirectionController extends StatelessWidget {
 }
 
 class SystemButtonGroup extends StatelessWidget {
-  static const _systemButtonColor = const Color(0xFF2dc421);
+  static const _systemButtonColor = Color(0xFF2dc421);
+
+  const SystemButtonGroup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -148,9 +154,10 @@ class SystemButtonGroup extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         _Description(
+          direction: AxisDirection.down,
           text: S.of(context).sounds,
           child: _Button(
-              size: _SYSTEM_BUTTON_SIZE,
+              size: systemButtonSize,
               color: _systemButtonColor,
               enableLongPress: false,
               onTap: () {
@@ -160,7 +167,7 @@ class SystemButtonGroup extends StatelessWidget {
         _Description(
           text: S.of(context).pause_resume,
           child: _Button(
-              size: _SYSTEM_BUTTON_SIZE,
+              size: systemButtonSize,
               color: _systemButtonColor,
               enableLongPress: false,
               onTap: () {
@@ -170,7 +177,7 @@ class SystemButtonGroup extends StatelessWidget {
         _Description(
           text: S.of(context).reset,
           child: _Button(
-              size: _SYSTEM_BUTTON_SIZE,
+              size: systemButtonSize,
               enableLongPress: false,
               color: Colors.red,
               onTap: () {
@@ -183,13 +190,15 @@ class SystemButtonGroup extends StatelessWidget {
 }
 
 class DropButton extends StatelessWidget {
+  const DropButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return _Description(
       text: 'drop',
       child: _Button(
           enableLongPress: false,
-          size: Size(90, 90),
+          size: const Size(90, 90),
           onTap: () {
             Game.of(context).drop();
           }),
@@ -198,9 +207,11 @@ class DropButton extends StatelessWidget {
 }
 
 class LeftController extends StatelessWidget {
+  const LeftController({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         SystemButtonGroup(),
@@ -216,7 +227,6 @@ class LeftController extends StatelessWidget {
 
 class _Button extends StatefulWidget {
   final Size size;
-  final Widget icon;
 
   final VoidCallback onTap;
 
@@ -225,19 +235,15 @@ class _Button extends StatefulWidget {
 
   final bool enableLongPress;
 
-  const _Button(
-      {Key key,
-      @required this.size,
-      @required this.onTap,
-      this.icon,
-      this.color = Colors.blue,
-      this.enableLongPress = true})
-      : super(key: key);
+  const _Button({
+    required this.size,
+    required this.onTap,
+    this.color = Colors.blue,
+    this.enableLongPress = true,
+  });
 
   @override
-  _ButtonState createState() {
-    return new _ButtonState();
-  }
+  _ButtonState createState() => _ButtonState();
 }
 
 ///show a hint text for child widget
@@ -249,54 +255,78 @@ class _Description extends StatelessWidget {
   final AxisDirection direction;
 
   const _Description({
-    Key key,
-    this.text,
+    required this.text,
     this.direction = AxisDirection.down,
-    this.child,
-  })  : assert(direction != null),
-        super(key: key);
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
     Widget widget;
     switch (direction) {
       case AxisDirection.right:
-        widget = Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[child, SizedBox(width: 8), Text(text)]);
+        widget = Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          child,
+          const SizedBox(width: 8),
+          Text(
+            text,
+            style: Theme.of(context).textTheme.labelSmall,
+          )
+        ]);
         break;
       case AxisDirection.left:
         widget = Row(
-          children: <Widget>[Text(text), SizedBox(width: 8), child],
           mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              text,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(width: 8),
+            child
+          ],
         );
         break;
       case AxisDirection.up:
         widget = Column(
-          children: <Widget>[Text(text), SizedBox(height: 8), child],
           mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              text,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(height: 8),
+            child
+          ],
         );
         break;
       case AxisDirection.down:
         widget = Column(
-          children: <Widget>[child, SizedBox(height: 8), Text(text)],
           mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            child,
+            const SizedBox(height: 8),
+            Text(
+              text,
+              style: Theme.of(context).textTheme.labelSmall,
+            )
+          ],
         );
         break;
     }
     return DefaultTextStyle(
+      style: const TextStyle(fontSize: 12, color: Colors.black),
       child: widget,
-      style: TextStyle(fontSize: 12, color: Colors.black),
     );
   }
 }
 
 class _ButtonState extends State<_Button> {
-  Timer _timer;
+  Timer? _timer;
 
   bool _tapEnded = false;
 
-  Color _color;
+  late Color _color;
 
   @override
   void didUpdateWidget(_Button oldWidget) {
@@ -315,7 +345,7 @@ class _ButtonState extends State<_Button> {
     return Material(
       color: _color,
       elevation: 2,
-      shape: CircleBorder(),
+      shape: const CircleBorder(),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTapDown: (_) async {

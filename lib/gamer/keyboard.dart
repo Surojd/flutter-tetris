@@ -6,50 +6,50 @@ import 'gamer.dart';
 ///keyboard controller to play game
 class KeyboardController extends StatefulWidget {
   final Widget child;
-
-  KeyboardController({this.child});
+  const KeyboardController({super.key, required this.child});
 
   @override
-  _KeyboardControllerState createState() => _KeyboardControllerState();
+  State<KeyboardController> createState() => _KeyboardControllerState();
 }
 
 class _KeyboardControllerState extends State<KeyboardController> {
   @override
   void initState() {
     super.initState();
-    RawKeyboard.instance.addListener(_onKey);
+    HardwareKeyboard.instance.addHandler(_onHandler);
   }
 
-  void _onKey(RawKeyEvent event) {
-    if (event is RawKeyUpEvent) {
-      return;
-    }
-
-    final key = event.data.logicalKey;
+  bool _onHandler(KeyEvent event) {
     final game = Game.of(context);
-
-    if (key == LogicalKeyboardKey.arrowUp) {
-      game.rotate();
-    } else if (key == LogicalKeyboardKey.arrowDown) {
-      game.down();
-    } else if (key == LogicalKeyboardKey.arrowLeft) {
-      game.left();
-    } else if (key == LogicalKeyboardKey.arrowRight) {
-      game.right();
-    } else if (key == LogicalKeyboardKey.space) {
-      game.drop();
-    } else if (key == LogicalKeyboardKey.keyP) {
-      game.pauseOrResume();
-    } else if (key == LogicalKeyboardKey.keyS) {
-      game.soundSwitch();
-    } else if (key == LogicalKeyboardKey.keyR) {
-      game.reset();
+    if (event is KeyUpEvent) {
+      return false;
     }
+
+    if (event is KeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+        game.rotate();
+      } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+        game.down();
+      } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+        game.left();
+      } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+        game.right();
+      } else if (event.logicalKey == LogicalKeyboardKey.space) {
+        game.drop();
+      } else if (event.logicalKey == LogicalKeyboardKey.keyP) {
+        game.pauseOrResume();
+      } else if (event.logicalKey == LogicalKeyboardKey.keyS) {
+        game.soundSwitch();
+      } else if (event.logicalKey == LogicalKeyboardKey.keyR) {
+        game.reset();
+      }
+    }
+    return true;
   }
 
   @override
   void dispose() {
-    RawKeyboard.instance.removeListener(_onKey);
+    HardwareKeyboard.instance.removeHandler(_onHandler);
     super.dispose();
   }
 

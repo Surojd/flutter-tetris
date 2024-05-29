@@ -1,27 +1,28 @@
 import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class GameMaterial extends StatefulWidget {
   final Widget child;
 
-  const GameMaterial({Key key, this.child}) : super(key: key);
+  const GameMaterial({
+    super.key,
+    required this.child,
+  });
 
   @override
-  _GameMaterialState createState() => _GameMaterialState();
+  State<GameMaterial> createState() => _GameMaterialState();
 
   static ui.Image getMaterial(BuildContext context) {
-    final _GameMaterialState state =
-        context.findAncestorStateOfType<_GameMaterialState>();
+    final state = context.findAncestorStateOfType<_GameMaterialState>();
     assert(state != null, "can not find GameMaterial widget");
-    return state.material;
+    return state!.material!;
   }
 }
 
 class _GameMaterialState extends State<GameMaterial> {
   ///the image data of /assets/material.png
-  ui.Image material;
+  ui.Image? material;
 
   @override
   void initState() {

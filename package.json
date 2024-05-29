@@ -1,0 +1,32 @@
+{
+  "name": "tetris",
+  "version": "1.0.0",
+  "description": "tetris game",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "flutter build appbundle",
+    "apk": "flutter build apk",
+    "web": "flutter build web",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Surojd/flutter-tetris.git"
+  },
+  "keywords": [
+    "tetris"
+  ],
+  "author": "Suroj Dangol",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Surojd/flutter-tetris/issues"
+  },
+  "homepage": "https://github.com/Surojd/flutter-tetris#readme",
+  "devDependencies": {
+    "netlify-plugin-flutter": "^1.1.0"
+  }
+}

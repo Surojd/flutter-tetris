@@ -9,16 +9,21 @@ import 'package:vector_math/vector_math_64.dart' as v;
 import 'player_panel.dart';
 import 'status_panel.dart';
 
-const Color SCREEN_BACKGROUND = Color(0xff9ead86);
+const Color screenBackground = Color(0xff9ead86);
 
 /// screen H : W;
 class Screen extends StatelessWidget {
   ///the with of screen
   final double width;
 
-  const Screen({Key key, @required this.width}) : super(key: key);
+  const Screen({
+    super.key,
+    required this.width,
+  });
 
-  Screen.fromHeight(double height) : this(width: ((height - 6) / 2 + 6) / 0.6);
+  static Screen fromHeight(double height) {
+    return Screen(width: ((height - 6) / 2 + 6) / 0.6);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +35,7 @@ class Screen extends StatelessWidget {
         height: (playerPanelWidth - 6) * 2 + 6,
         width: width,
         child: Container(
-          color: SCREEN_BACKGROUND,
+          color: screenBackground,
           child: GameMaterial(
             child: BrikSize(
               size: getBrikSizeForScreenWidth(playerPanelWidth),
@@ -39,7 +44,7 @@ class Screen extends StatelessWidget {
                   PlayerPanel(width: playerPanelWidth),
                   SizedBox(
                     width: width - playerPanelWidth,
-                    child: StatusPanel(),
+                    child: const StatusPanel(),
                   )
                 ],
               ),
@@ -57,24 +62,27 @@ class Shake extends StatefulWidget {
   ///true to shake screen vertically
   final bool shake;
 
-  const Shake({Key key, @required this.child, @required this.shake})
-      : super(key: key);
+  const Shake({
+    super.key,
+    required this.child,
+    required this.shake,
+  });
 
   @override
-  _ShakeState createState() => _ShakeState();
+  State<Shake> createState() => _ShakeState();
 }
 
 ///摇晃屏幕
 class _ShakeState extends State<Shake> with TickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 150))
-          ..addListener(() {
-            setState(() {});
-          });
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 150))
+      ..addListener(() {
+        setState(() {});
+      });
     super.initState();
   }
 
